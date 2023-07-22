@@ -13,7 +13,7 @@
 
 body{
     background: var(--bg_black);
-
+    cursor: none;
 }
 
 .main_content{
@@ -51,6 +51,7 @@ body{
     font-size: xxx-large;
     font-style: italic;
     word-break: break-all;
+    line-height: 150%;
 }
 
 .artist_name{
@@ -70,3 +71,20 @@ body{
     box-shadow: 10px 10px 50px var(--bg_black);
 }
 
+.mouse_follow{
+    width: 10px;
+    aspect-ratio: 1 / 1;
+    position: fixed;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 50;
+    box-shadow: 0 0 12px #fff;
+    pointer-events: none;
+    transition: width 0.2s ease-out;
+}
+
+.mouse_follow_hover{
+    mix-blend-mode: difference;
+    width: 80px;
+    box-shadow: 0 0 20px #fff;
+}

@@ -55,9 +55,21 @@ document.addEventListener("scroll", function() {
     }
 });
 
+circle = document.querySelector(".mouse_follow")
+
 
 document.addEventListener("mousemove", function(mousemovement) {
     shadow_update(mousemovement)
+    if (document.querySelector(".artist_name:hover") != null) {
+        circle.classList.add("mouse_follow_hover")
+    } else {
+        circle.classList.remove("mouse_follow_hover")
+    }
+
+    setTimeout(() => {
+        circle.style.left = mousemovement.clientX - circle.offsetWidth/2 + "px";
+        circle.style.top = mousemovement.clientY - circle.offsetHeight/2 + "px";
+    }, 20)
 });
 
 function shadow_update(mousemovement) {
@@ -69,7 +81,6 @@ function shadow_update(mousemovement) {
 
         circles[i].style.boxShadow = shadowx+"px "+shadowy+"px 50px var(--bg_black)";
     }
-
 }
 
 
