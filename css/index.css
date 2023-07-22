@@ -1,0 +1,72 @@
+:root{
+    --bg_black: #161616;
+    --site_white: #fcfcfc;
+    --site_pink: #ff0090;
+    --site_purple: #c113f1;
+}
+*{
+    color: #fcfcfc;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body{
+    background: var(--bg_black);
+
+}
+
+.main_content{
+    width: 53%;
+    margin: 2% 0 0 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+}
+
+.main_logo{
+    width: 100%;
+}
+
+.info_boxes{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.info{
+    width: 30%;
+}
+
+.info h2{
+    font-family: 'Staatliches', cursive;
+    font-size: 4vw;
+}
+
+.info p{
+    font-family: 'Roboto', sans-serif;
+}
+
+.artist_box{
+    font-family: 'Roboto', sans-serif;
+    font-size: xxx-large;
+    font-style: italic;
+    word-break: break-all;
+}
+
+.artist_name{
+    white-space: nowrap;
+}
+
+.slash{
+    padding: 0 2vw;
+}
+
+
+
+.circle_graphic{
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    box-shadow: 10px 10px 50px var(--bg_black);
+}
+
