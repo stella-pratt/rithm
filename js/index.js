@@ -59,7 +59,8 @@ for (let i = 0; i < num_circles; i++) {
 
 
 }
-document.addEventListener("scroll", function() {
+document.addEventListener("scroll", function(e) {
+
     for (let i = 0; i < num_circles; i++) {
         circles[i].style.top = circle_heights[i][0] - (100*(window.scrollY/window.innerHeight))*circle_heights[i][1] + "vh";
     }
