@@ -6,6 +6,16 @@ function GenerateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function change_artist(curSlide) {
+    slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${(index - current_slide) * 100}%)`;
+        if (slide.style.transform.replace(/\D/g, '') === "100"){
+            slide.classList.remove("artist_slide_faded")
+        } else {
+            slide.classList.add("artist_slide_faded")
+        }
+    });
+}
 
 
 
@@ -23,7 +33,7 @@ const circle_heights = []
 MAX_SPEED = 5
 MIN_SPEED = 1.1
 body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
-
+const ARTISTS = ["TAME IMPALA", "THE WEEKEND", "TV GIRL", "ARCTIC MONKEYS", "HOZIER", "THE NEIGHBOURHOOD", "GIRL IN RED", "FLORENCE + THE MACHINE", "WALLOWS", "MGMT", "THE STROKES", "THE KILLERS", "KING GIZZARD &amp; THE LIZARD WIZARD", "TALKING HEADS", "JOJI", "DUA LIPA", "STEVE LACY", "VANSIRE", "TWO DOOR CINEMA CLUB", "HOTEL UGLY", "THUNDERCAT", "MAC DEMARCO", "SPORTS", "MEN I TRUST", "THE SMITHS", "EKKSTACY"]
 
 
 for (let i = 0; i < num_circles; i++) {
@@ -60,7 +70,7 @@ circle = document.querySelector(".mouse_follow")
 
 document.addEventListener("mousemove", function(mousemovement) {
     shadow_update(mousemovement)
-    if (document.querySelector(".artist_name:hover") != null) {
+    if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") != null) {
         circle.classList.add("mouse_follow_hover")
     } else {
         circle.classList.remove("mouse_follow_hover")
@@ -73,7 +83,7 @@ document.addEventListener("mousemove", function(mousemovement) {
 });
 
 function shadow_update(mousemovement) {
-        for (let i = 0; i < num_circles; i++) {
+    for (let i = 0; i < num_circles; i++) {
         x_circle = circles[i].offsetLeft + circles[i].offsetWidth/2;
         y_circle = circles[i].offsetTop + circles[i].offsetHeight/2;
         shadowx = (x_circle - mousemovement.clientX)/30;
@@ -87,7 +97,16 @@ function shadow_update(mousemovement) {
 
 artist_names = document.querySelectorAll(".artist_name")
 
-
+const slides = document.querySelectorAll(".artist_slide");
+let current_slide = 0;
+slides.forEach((slide, index) => {
+    slide.style.transform = `translateX(${index * 100}%)`;
+    if (slide.style.transform.replace(/\D/g, '') / 100 === 1){
+        slide.classList.remove("artist_slide_faded")
+    } else {
+        slide.classList.add("artist_slide_faded")
+    }
+});
 
 document.addEventListener("click", function(e) {
     if (e.target.className === "artist_name"){
@@ -95,10 +114,33 @@ document.addEventListener("click", function(e) {
         document.querySelector(".fade").style.opacity = "80%";
         document.querySelector(".artist_pop_out").style.width = "40vw";
         circle.classList.remove("mouse_follow_hover")
+        current_slide = ARTISTS.indexOf(e.target.innerHTML) - 1;
+        change_artist(current_slide);
+
 
     } else if (e.target.className === "fade") {
         document.querySelector(".fade").style.pointerEvents = "none";
         document.querySelector(".fade").style.opacity = "0%";
         document.querySelector(".artist_pop_out").style.width = "0vw";
+    } else if (e.target.classList.contains("artist_slide")) {
+        let click_index = e.target.style.transform.replace(/\D/g, '') / 100; // removes all non-numeric characters
+        if (click_index < 1){
+            current_slide--;
+        } else if (click_index > 1){
+            current_slide++;
+        }
+        change_artist(current_slide);
     }
 })
+
+const list_cards = document.querySelectorAll(".artist_car_item")
+card_container = document.querySelector(".artist_header")
+
+list_cards.forEach((cardElement, index) => {
+    cardElement.addEventListener("click", () => {
+        const scrollLeft = (index * list_cards[0].offsetWidth);
+        card_container.scrollTo({left: scrollLeft, behavior: "smooth"});
+    });
+});
+
+
