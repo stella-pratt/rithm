@@ -15,7 +15,14 @@ body{
     background: var(--bg_black);
     cursor: none;
     user-select: none;
+    overflow-y: scroll;
 }
+
+.body_frozen{
+    position: fixed;
+    overflow-y: scroll;
+}
+
 
 .main_content{
     width: 53%;
@@ -88,4 +95,49 @@ body{
     mix-blend-mode: difference;
     width: 80px;
     box-shadow: 0 0 20px #fff;
+}
+
+.artist_pop_out{
+    width: 0;
+    height: 100vh;
+    background: navy;
+    z-index: 3;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: width 0.2s;
+}
+
+.artist_header{
+    width: 100%;
+    height: 200px;
+    background: maroon;
+    display: flex;
+    flex-direction: row;
+    overflow: clip;
+    align-items: center;
+}
+
+.artist_car_item{
+    width: 15vw;
+    background: green;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.artist_car_item:nth-child(2){
+    background: yellow;
+}
+
+.fade{
+    width: 100vw;
+    height:100vh;
+    top: 0;
+    left: 0;
+    background: var(--bg_black);
+    opacity: 0;
+    position: fixed;
+    z-index: 2;
+    transition: opacity 0.2s;
+    pointer-events: none;
 }

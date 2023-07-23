@@ -83,5 +83,22 @@ function shadow_update(mousemovement) {
     }
 }
 
+// artist pop out
+
+artist_names = document.querySelectorAll(".artist_name")
 
 
+
+document.addEventListener("click", function(e) {
+    if (e.target.className === "artist_name"){
+        document.querySelector(".fade").style.pointerEvents = "all";
+        document.querySelector(".fade").style.opacity = "80%";
+        document.querySelector(".artist_pop_out").style.width = "40vw";
+        circle.classList.remove("mouse_follow_hover")
+
+    } else if (e.target.className === "fade") {
+        document.querySelector(".fade").style.pointerEvents = "none";
+        document.querySelector(".fade").style.opacity = "0%";
+        document.querySelector(".artist_pop_out").style.width = "0vw";
+    }
+})
