@@ -9,6 +9,7 @@ function GenerateRandomInt(min, max) {
 function change_artist(curSlide) {
     slides.forEach((slide, index) => {
         slide.style.transform = `translateX(${(index - current_slide) * 100}%)`;
+        images_slide[index].style.transform = `translateX(${(index - current_slide-1) * 100}%)`;
         if (slide.style.transform.replace(/\D/g, '') === "100"){
             slide.classList.remove("artist_slide_faded")
         } else {
@@ -17,7 +18,7 @@ function change_artist(curSlide) {
     });
 }
 
-
+//2333 x1000
 
 num_circles = 15
 let circ_diameter;
@@ -99,9 +100,11 @@ function shadow_update(mousemovement) {
 artist_names = document.querySelectorAll(".artist_name")
 
 const slides = document.querySelectorAll(".artist_slide");
+const images_slide = document.querySelectorAll(".artist_img");
 let current_slide = 0;
 slides.forEach((slide, index) => {
     slide.style.transform = `translateX(${index * 100}%)`;
+    images_slide[index].style.transform = `translateX(${index*100}%)`
     if (slide.style.transform.replace(/\D/g, '') / 100 === 1){
         slide.classList.remove("artist_slide_faded")
     } else {
@@ -134,14 +137,8 @@ document.addEventListener("click", function(e) {
     }
 })
 
-const list_cards = document.querySelectorAll(".artist_car_item")
-card_container = document.querySelector(".artist_header")
-
-list_cards.forEach((cardElement, index) => {
-    cardElement.addEventListener("click", () => {
-        const scrollLeft = (index * list_cards[0].offsetWidth);
-        card_container.scrollTo({left: scrollLeft, behavior: "smooth"});
-    });
-});
+//set hieght of container to same as elements
+console.log(document.querySelector(".artist_img").height)
+document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 
 
