@@ -7,9 +7,11 @@ function GenerateRandomInt(min, max) {
 }
 
 function change_artist(curSlide) {
+    //move all the elements to their new location
     slides.forEach((slide, index) => {
-        slide.style.transform = `translateX(${(index - current_slide) * 100}%)`;
-        images_slide[index].style.transform = `translateX(${(index - current_slide-1) * 100}%)`;
+        slide.style.transform = `translateX(${(index - curSlide) * 100}%)`;
+        images_slide[index].style.transform = `translateX(${(index - curSlide-1) * 100}%)`;
+        // change the look of the words if not the central one
         if (slide.style.transform.replace(/\D/g, '') === "100"){
             slide.classList.remove("artist_slide_faded")
         } else {
@@ -18,8 +20,7 @@ function change_artist(curSlide) {
     });
 }
 
-//2333 x1000
-
+// define all variable and constants
 num_circles = 15
 let circ_diameter;
 let circ_x;
@@ -38,9 +39,11 @@ const ARTISTS = ["TAME IMPALA", "THE WEEKEND", "TV GIRL", "ARCTIC MONKEYS", "HOZ
 
 
 for (let i = 0; i < num_circles; i++) {
+    // create all the gradient circles
+    // add elements to a list
     circles.push(document.createElement("div"))
 
-
+    //randomly generate all aspects of the circles
     grad_angle = GenerateRandomInt(0, 360);
     grad_percent = GenerateRandomInt(50, 100);
     circ_diameter = GenerateRandomInt(MIN_CIRCLE_DIAMETER, MAX_CIRCLE_DIAMETER);
@@ -48,25 +51,29 @@ for (let i = 0; i < num_circles; i++) {
     circ_x = GenerateRandomInt(57, 95);
     circ_y = GenerateRandomInt(0, body_height_vh*2.5+vh_diameter);
 
+    // define element properties
     circles[i].className = "circle_graphic";
     circles[i].style.backgroundImage = 'linear-gradient(' + grad_angle + 'deg, ' + site_purple + ' 0%, ' + site_pink + ' ' + grad_percent + '%)';
     circles[i].style.height = circ_diameter + "px";
     circles[i].style.width = circ_diameter + "px";
     circles[i].style.left = circ_x + "vw";
     circles[i].style.top = circ_y-vh_diameter + "vh";
+    // store extra info in another list
     circle_heights.push([circ_y-vh_diameter, Math.random() * (MAX_SPEED - MIN_SPEED) + MIN_SPEED]);
-
+    // add element to site
     document.body.insertBefore(circles[i], document.getElementById("first_div"));
-
-
 }
-document.addEventListener("scroll", function(e) {
 
+
+document.addEventListener("scroll", function() {
+    // parallax scroll the circles
     for (let i = 0; i < num_circles; i++) {
         circles[i].style.top = circle_heights[i][0] - (100*(window.scrollY/window.innerHeight))*circle_heights[i][1] + "vh";
     }
 });
 
+
+// add custom cursor
 circle = document.querySelector(".mouse_follow")
 
 
@@ -137,7 +144,7 @@ document.addEventListener("click", function(e) {
     }
 })
 
-//set hieght of container to same as elements
+//set height of container to same as elements
 document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 
 window.onscroll = function() {
