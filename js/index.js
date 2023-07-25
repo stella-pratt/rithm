@@ -138,7 +138,10 @@ document.addEventListener("click", function(e) {
 })
 
 //set hieght of container to same as elements
-console.log(document.querySelector(".artist_img").height)
 document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 
-
+window.onscroll = function() {
+    if (document.querySelector(".artist_slide:hover")){
+        console.log("working")
+    }
+};
