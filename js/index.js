@@ -2,6 +2,7 @@
 site_pink = "#ff0090"
 site_purple = "#c113f1"
 
+// random number gen with min and max parameters
 function GenerateRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -13,9 +14,9 @@ function change_artist(curSlide) {
         images_slide[index].style.transform = `translateX(${(index - curSlide-1) * 100}%)`;
         // change the look of the words if not the central one
         if (slide.style.transform.replace(/\D/g, '') === "100"){
-            slide.classList.remove("artist_slide_faded")
+            slide.classList.remove("artist_slide_faded");
         } else {
-            slide.classList.add("artist_slide_faded")
+            slide.classList.add("artist_slide_faded");
         }
     });
 }
@@ -79,6 +80,7 @@ circle = document.querySelector(".mouse_follow")
 
 document.addEventListener("mousemove", function(mousemovement) {
     shadow_update(mousemovement)
+    // change cursor to hover style
     if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") != null) {
         circle.classList.add("mouse_follow_hover")
     } else {
@@ -86,32 +88,38 @@ document.addEventListener("mousemove", function(mousemovement) {
     }
 
     setTimeout(() => {
+        // update the circles location with delay for smoothing.
         circle.style.left = mousemovement.clientX - circle.offsetWidth/2 + "px";
         circle.style.top = mousemovement.clientY - circle.offsetHeight/2 + "px";
     }, 20)
 });
 
 function shadow_update(mousemovement) {
+    // update the shadows for all circles
     for (let i = 0; i < num_circles; i++) {
+        // calculate offset for the width of the circle
         x_circle = circles[i].offsetLeft + circles[i].offsetWidth/2;
         y_circle = circles[i].offsetTop + circles[i].offsetHeight/2;
+        // take the distances and divide them for small shadows
         shadowx = (x_circle - mousemovement.clientX)/30;
         shadowy = (y_circle - mousemovement.clientY)/30;
-
+        // change the style
         circles[i].style.boxShadow = shadowx+"px "+shadowy+"px 50px var(--bg_black)";
     }
 }
 
 // artist pop out
-
 artist_names = document.querySelectorAll(".artist_name")
 
+// collect all slides
 const slides = document.querySelectorAll(".artist_slide");
 const images_slide = document.querySelectorAll(".artist_img");
 let current_slide = 0;
 slides.forEach((slide, index) => {
+    // transform the slides
     slide.style.transform = `translateX(${index * 100}%)`;
     images_slide[index].style.transform = `translateX(${index*100}%)`
+    // change the style of the current name
     if (slide.style.transform.replace(/\D/g, '') / 100 === 1){
         slide.classList.remove("artist_slide_faded")
     } else {
