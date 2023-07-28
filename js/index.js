@@ -127,21 +127,25 @@ slides.forEach((slide, index) => {
     }
 });
 
+// add a click checker to add buttons to elements
 document.addEventListener("click", function(e) {
     if (e.target.className === "artist_name"){
+        // opens the menu
         document.querySelector(".fade").style.pointerEvents = "all";
         document.querySelector(".fade").style.opacity = "80%";
         document.querySelector(".artist_pop_out").style.width = "40vw";
         circle.classList.remove("mouse_follow_hover")
+        // set the carousel to the correct slide
         current_slide = ARTISTS.indexOf(e.target.innerHTML) - 1;
         change_artist(current_slide);
 
-
     } else if (e.target.className === "fade") {
+        // close the menu
         document.querySelector(".fade").style.pointerEvents = "none";
         document.querySelector(".fade").style.opacity = "0%";
         document.querySelector(".artist_pop_out").style.width = "0vw";
     } else if (e.target.classList.contains("artist_slide")) {
+        // rotate the carousel
         let click_index = e.target.style.transform.replace(/\D/g, '') / 100; // removes all non-numeric characters
         if (click_index < 1){
             current_slide--;
@@ -154,9 +158,3 @@ document.addEventListener("click", function(e) {
 
 //set height of container to same as elements
 document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
-
-window.onscroll = function() {
-    if (document.querySelector(".artist_slide:hover")){
-        console.log("working")
-    }
-};
