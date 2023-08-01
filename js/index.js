@@ -35,7 +35,7 @@ const circles = []
 const circle_heights = []
 MAX_SPEED = 5
 MIN_SPEED = 1.1
-body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
+
 
 const ARTIST_INFO = {
     tame: "TAME IMPALA",
@@ -65,6 +65,34 @@ const ARTIST_INFO = {
     smiths: "THE SMITHS",
     ekkstacy: "EKKSTACY",
 }
+
+// dynamically create  carousel
+for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
+    // create text slides
+    let slide = document.createElement("div");
+    slide.className = "artist_slide";
+    slide.innerHTML = Object.values(ARTIST_INFO)[i]
+    document.querySelector(".artist_container").appendChild(slide)
+    // create image slides
+    let img_slide = document.createElement("img")
+    img_slide.className = "artist_img";
+    img_slide.src = "images/artist_imgs/" + Object.keys(ARTIST_INFO)[i] + ".jpg";
+    img_slide.alt = "temporary"
+    document.querySelector(".image_container").appendChild(img_slide)
+    //create artist list
+    let artist_name = document.createElement("a");
+    artist_name.className = "artist_name";
+    artist_name.innerHTML = Object.values(ARTIST_INFO)[i];
+    document.querySelector(".artist_box").appendChild(artist_name)
+    // add slash between artists
+    let slash = document.createElement("a");
+    slash.className = "slash";
+    slash.innerHTML = "/";
+    document.querySelector(".artist_box").appendChild(slash);
+}
+
+// get hieght after element creation for correct number
+body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
 
 for (let i = 0; i < num_circles; i++) {
     // create all the gradient circles
@@ -100,20 +128,7 @@ document.addEventListener("scroll", function() {
     }
 });
 
-// dynamically create  carousel
-for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
-    // create text slides
-    let slide = document.createElement("div");
-    slide.className = "artist_slide";
-    slide.innerHTML = Object.values(ARTIST_INFO)[i]
-    document.querySelector(".artist_container").appendChild(slide)
-    // create image slides
-    let img_slide = document.createElement("img")
-    img_slide.className = "artist_img";
-    img_slide.src = "images/artist_imgs/" + Object.keys(ARTIST_INFO)[i] + ".jpg";
-    img_slide.alt = "temporary"
-    document.querySelector(".image_container").appendChild(img_slide)
-}
+
 
 
 
