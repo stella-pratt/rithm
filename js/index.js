@@ -111,7 +111,7 @@ for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
     let img_slide = document.createElement("img")
     img_slide.className = "artist_img";
     img_slide.src = "images/artist_imgs/" + Object.keys(ARTIST_INFO)[i] + ".jpg";
-    img_slide.alt = "shit"
+    img_slide.alt = "temporary"
     document.querySelector(".image_container").appendChild(img_slide)
 }
 
