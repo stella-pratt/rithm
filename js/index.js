@@ -100,12 +100,19 @@ document.addEventListener("scroll", function() {
     }
 });
 
-// dynamically create artist names in carousel
+// dynamically create  carousel
 for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
+    // create text slides
     let slide = document.createElement("div");
     slide.className = "artist_slide";
     slide.innerHTML = Object.values(ARTIST_INFO)[i]
     document.querySelector(".artist_container").appendChild(slide)
+    // create image slides
+    let img_slide = document.createElement("img")
+    img_slide.className = "artist_img";
+    img_slide.src = "images/artist_imgs/" + Object.keys(ARTIST_INFO)[i] + ".jpg";
+    img_slide.alt = "shit"
+    document.querySelector(".image_container").appendChild(img_slide)
 }
 
 
