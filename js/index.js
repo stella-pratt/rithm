@@ -204,8 +204,6 @@ document.addEventListener("click", function(e) {
     }
 })
 
-// set height of container to same as elements
-document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 
 // change the pop out width if the window resizes
 // need to make it only if menu already open
@@ -219,4 +217,6 @@ window.addEventListener("resize", function (){
             document.querySelector(".artist_pop_out").style.width = "100vw";
         }
     }
+    //change height of image container regardless
+    document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 })

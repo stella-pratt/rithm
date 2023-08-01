@@ -156,6 +156,8 @@ body{
 .image_container{
     width: 100%;
     position: relative;
+    /* calculate the heght of an image and set container to that height*/
+    height: calc((500/1167)*40vw);
     overflow: hidden;
 }
 
@@ -173,6 +175,7 @@ body{
     .artist_slide{
         width: calc(100vw/3);
     }
+
 }
 
 .gradient{
