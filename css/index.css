@@ -4,6 +4,7 @@
     --site_pink: #ff0090;
     --site_purple: #c113f1;
 }
+
 *{
     color: #fcfcfc;
     padding: 0;
@@ -163,6 +164,17 @@ body{
     position: absolute;
     transition: all 0.5s;
 }
+
+@media only screen and (orientation: portrait) {
+  .artist_img {
+    width: 100vw;
+  }
+
+    .artist_slide{
+        width: calc(100vw/3);
+    }
+}
+
 .gradient{
     position: absolute;
     width: 100%;

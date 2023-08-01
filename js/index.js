@@ -36,8 +36,35 @@ const circle_heights = []
 MAX_SPEED = 5
 MIN_SPEED = 1.1
 body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
-const ARTISTS = ["TAME IMPALA", "THE WEEKEND", "TV GIRL", "ARCTIC MONKEYS", "HOZIER", "THE NEIGHBOURHOOD", "GIRL IN RED", "FLORENCE + THE MACHINE", "WALLOWS", "MGMT", "THE STROKES", "THE KILLERS", "KING GIZZARD &amp; THE LIZARD WIZARD", "TALKING HEADS", "JOJI", "DUA LIPA", "STEVE LACY", "VANSIRE", "TWO DOOR CINEMA CLUB", "HOTEL UGLY", "THUNDERCAT", "MAC DEMARCO", "SPORTS", "MEN I TRUST", "THE SMITHS", "EKKSTACY"]
 
+const ARTIST_INFO = {
+    tame: "TAME IMPALA",
+    weekend: "THE WEEKEND",
+    tv: "TV GIRL",
+    arctic: "ARCTIC MONKEYS",
+    hozier: "HOZIER",
+    neighbourhood: "THE NEIGHBOURHOOD",
+    girl: "GIRL IN RED",
+    florence: "FLORENCE + THE MACHINE",
+    wallows: "WALLOWS",
+    mgmt: "MGMT",
+    strokes: "THE STROKES",
+    killers: "THE KILLERS",
+    gizzard: "KING GIZZARD &amp; THE LIZARD WIZARD",
+    talking: "TALKING HEADS",
+    joji: "JOJI",
+    dua: "DUA LIPA",
+    steve: "STEVE LACY",
+    vansire: "VANSIRE",
+    cinema: "TWO DOOR CINEMA CLUB",
+    hotel: "HOTEL UGLY",
+    thundercat: "THUNDERCAT",
+    mac: "MAC DEMARCO",
+    sports: "SPORTS",
+    men: "MEN I TRUST",
+    smiths: "THE SMITHS",
+    ekkstacy: "EKKSTACY",
+}
 
 for (let i = 0; i < num_circles; i++) {
     // create all the gradient circles
@@ -72,6 +99,15 @@ document.addEventListener("scroll", function() {
         circles[i].style.top = circle_heights[i][0] - (100*(window.scrollY/window.innerHeight))*circle_heights[i][1] + "vh";
     }
 });
+
+// dynamically create artist names in carousel
+for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
+    let slide = document.createElement("div");
+    slide.className = "artist_slide";
+    slide.innerHTML = Object.values(ARTIST_INFO)[i]
+    document.querySelector(".artist_container").appendChild(slide)
+}
+
 
 
 // add custom cursor
@@ -133,10 +169,15 @@ document.addEventListener("click", function(e) {
         // opens the menu
         document.querySelector(".fade").style.pointerEvents = "all";
         document.querySelector(".fade").style.opacity = "80%";
-        document.querySelector(".artist_pop_out").style.width = "40vw";
+        // set width dependent on veritcal or horizontal display
+        if(window.innerHeight < window.innerWidth){
+            document.querySelector(".artist_pop_out").style.width = "40vw";
+        } else {
+            document.querySelector(".artist_pop_out").style.width = "100vw";
+        }
         circle.classList.remove("mouse_follow_hover")
         // set the carousel to the correct slide
-        current_slide = ARTISTS.indexOf(e.target.innerHTML) - 1;
+        current_slide = Object.values(ARTIST_INFO).indexOf(e.target.innerHTML) - 1;
         change_artist(current_slide);
 
     } else if (e.target.className === "fade") {
@@ -156,5 +197,19 @@ document.addEventListener("click", function(e) {
     }
 })
 
-//set height of container to same as elements
+// set height of container to same as elements
 document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
+
+// change the pop out width if the window resizes
+// need to make it only if menu already open
+window.addEventListener("resize", function (){
+    // check if menu is already open
+    if(document.querySelector(".fade").style.pointerEvents === "all"){
+        // set width dependent on veritcal or horizontal display
+        if(window.innerHeight < window.innerWidth){
+            document.querySelector(".artist_pop_out").style.width = "40vw";
+        } else {
+            document.querySelector(".artist_pop_out").style.width = "100vw";
+        }
+    }
+})
