@@ -13,7 +13,7 @@ function change_artist(curSlide) {
         slide.style.transform = `translateX(${(index - curSlide) * 100}%)`;
         images_slide[index].style.transform = `translateX(${(index - curSlide-1) * 100}%)`;
         // change the look of the words if not the central one
-        if (slide.style.transform.replace(/\D/g, '') === "100"){
+        if (slide.style.transform === "translateX(100%)"){
             slide.classList.remove("artist_slide_faded");
         } else {
             slide.classList.add("artist_slide_faded");
@@ -35,6 +35,7 @@ const circles = []
 const circle_heights = []
 MAX_SPEED = 5
 MIN_SPEED = 1.1
+SHADOW_MULT = 50
 
 
 const ARTIST_INFO = {
@@ -119,6 +120,8 @@ for (let i = 0; i < num_circles; i++) {
     // add element to site
     document.body.insertBefore(circles[i], document.getElementById("first_div"));
 }
+// define menu's gradient angle
+document.querySelector(".menu_drop").style.backgroundImage = 'linear-gradient(' + GenerateRandomInt(0, 360) + 'deg, var(--site_purple), var(--site_pink)';
 
 
 document.addEventListener("scroll", function() {
@@ -156,14 +159,23 @@ function shadow_update(mousemovement) {
     // update the shadows for all circles
     for (let i = 0; i < num_circles; i++) {
         // calculate offset for the width of the circle
-        x_circle = circles[i].offsetLeft + circles[i].offsetWidth/2;
-        y_circle = circles[i].offsetTop + circles[i].offsetHeight/2;
+        let x_circle = circles[i].offsetLeft + circles[i].offsetWidth/2;
+        let y_circle = circles[i].offsetTop + circles[i].offsetHeight/2;
         // take the distances and divide them for small shadows
-        shadowx = (x_circle - mousemovement.clientX)/30;
-        shadowy = (y_circle - mousemovement.clientY)/30;
+        let shadowx = (x_circle - mousemovement.clientX)/SHADOW_MULT;
+        let shadowy = (y_circle - mousemovement.clientY)/SHADOW_MULT;
         // change the style
         circles[i].style.boxShadow = shadowx+"px "+shadowy+"px 50px var(--bg_black)";
     }
+    let menu_circ = document.querySelector(".menu_drop")
+    // calculate offset for the width of the circle
+    let x_circle = menu_circ.offsetLeft + menu_circ.offsetWidth/2;
+    let y_circle = menu_circ.offsetTop + menu_circ.offsetHeight/2;
+    // take the distances and divide them for small shadows
+    let shadowx = (x_circle - mousemovement.clientX)/SHADOW_MULT;
+    let shadowy = (y_circle - mousemovement.clientY)/SHADOW_MULT;
+    // change the style
+    menu_circ.style.boxShadow = shadowx+"px "+shadowy+"px 50px var(--bg_black)";
 }
 
 // artist pop out
@@ -216,6 +228,8 @@ document.addEventListener("click", function(e) {
             current_slide++;
         }
         change_artist(current_slide);
+    } else if (e.target.classList.contains("menu_click_detect")){
+        document.querySelector(".nav_icon").classList.toggle("open")
     }
 })
 
@@ -235,3 +249,4 @@ window.addEventListener("resize", function (){
     //change height of image container regardless
     document.querySelector(".image_container").style.height = document.querySelector(".artist_img").height + "px"
 })
+
