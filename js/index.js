@@ -159,8 +159,8 @@ function shadow_update(mousemovement) {
     // update the shadows for all circles
     for (let i = 0; i < num_circles; i++) {
         // calculate offset for the width of the circle
-        let x_circle = circles[i].offsetLeft + circles[i].offsetWidth/2;
-        let y_circle = circles[i].offsetTop + circles[i].offsetHeight/2;
+        let x_circle= circles[i].offsetLeft + circles[i].offsetWidth/2;
+        let y_circle= circles[i].offsetTop + circles[i].offsetHeight/2;
         // take the distances and divide them for small shadows
         let shadowx = (x_circle - mousemovement.clientX)/SHADOW_MULT;
         let shadowy = (y_circle - mousemovement.clientY)/SHADOW_MULT;
@@ -169,12 +169,13 @@ function shadow_update(mousemovement) {
     }
     let menu_circ = document.querySelector(".menu_drop")
     // calculate offset for the width of the circle
-    let x_circle = menu_circ.offsetLeft + menu_circ.offsetWidth/2;
-    let y_circle = menu_circ.offsetTop + menu_circ.offsetHeight/2;
+    let x_circle= menu_circ.getBoundingClientRect()["x"] + menu_circ.offsetWidth/2; // getBoundingClientRect() returns the position relative to the viewport, better than offsetleft
+    let y_circle= menu_circ.offsetTop + menu_circ.offsetHeight/2;
     // take the distances and divide them for small shadows
-    let shadowx = (x_circle - mousemovement.clientX)/SHADOW_MULT;
-    let shadowy = (y_circle - mousemovement.clientY)/SHADOW_MULT;
+    let shadowx = (x_circle - mousemovement.clientX)/(SHADOW_MULT*1.6);
+    let shadowy = (y_circle - mousemovement.clientY)/(SHADOW_MULT*1.6);
     // change the style
+
     menu_circ.style.boxShadow = shadowx+"px "+shadowy+"px 50px var(--bg_black)";
 }
 
@@ -230,6 +231,10 @@ document.addEventListener("click", function(e) {
         change_artist(current_slide);
     } else if (e.target.classList.contains("menu_click_detect")){
         document.querySelector(".nav_icon").classList.toggle("open")
+        let drops = document.querySelectorAll(".menu_dropdown")
+        drops.forEach((drop) => {
+            drop.classList.toggle("open")
+        })
     }
 })
 
