@@ -217,6 +217,7 @@ body{
     height: 0;
 }
 
+
 .menu_dropdown.open{
     box-shadow: 10px 10px 50px var(--bg_black);
     width: 80px;

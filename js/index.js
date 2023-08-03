@@ -232,9 +232,8 @@ document.addEventListener("click", function(e) {
     } else if (e.target.classList.contains("menu_click_detect")){
         document.querySelector(".nav_icon").classList.toggle("open")
         let drops = document.querySelectorAll(".menu_dropdown")
-        drops.forEach((drop) => {
-            drop.classList.toggle("open")
-        })
+        drops[0].classList.toggle("open");
+        setTimeout(() => {drops[1].classList.toggle("open")}, 200);
     }
 })
 
