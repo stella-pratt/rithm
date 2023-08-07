@@ -142,7 +142,7 @@ circle = document.querySelector(".mouse_follow")
 document.addEventListener("mousemove", function(mousemovement) {
     shadow_update(mousemovement)
     // change cursor to hover style
-    if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") != null) {
+    if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") || document.querySelector(".menu_click_detect:hover") != null) {
         circle.classList.add("mouse_follow_hover")
     } else {
         circle.classList.remove("mouse_follow_hover")
@@ -232,8 +232,9 @@ document.addEventListener("click", function(e) {
     } else if (e.target.classList.contains("menu_click_detect")){
         document.querySelector(".nav_icon").classList.toggle("open")
         let drops = document.querySelectorAll(".menu_dropdown")
-        drops[0].classList.toggle("open");
-        setTimeout(() => {drops[1].classList.toggle("open")}, 200);
+        drops.forEach((drop) => {
+            drop.classList.toggle("open")
+        })
     }
 })
 
