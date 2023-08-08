@@ -1,10 +1,8 @@
-
-site_pink = "#ff0090"
-site_purple = "#c113f1"
+import {menu_btns} from "./global_functions";
 
 // random number gen with min and max parameters
 function GenerateRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function change_artist(curSlide) {
@@ -21,21 +19,24 @@ function change_artist(curSlide) {
     });
 }
 
+
 // define all variable and constants
-num_circles = 15
+let site_pink = "#ff0090"
+let site_purple = "#c113f1"
+let num_circles = 15
 let circ_diameter;
 let circ_x;
 let circ_y;
 let grad_angle;
 let grad_percent;
 let vh_diameter;
-MAX_CIRCLE_DIAMETER = window.innerWidth/4;
-MIN_CIRCLE_DIAMETER = window.innerWidth/15;
+let MAX_CIRCLE_DIAMETER = window.innerWidth/4;
+let MIN_CIRCLE_DIAMETER = window.innerWidth/15;
 const circles = []
 const circle_heights = []
-MAX_SPEED = 5
-MIN_SPEED = 1.1
-SHADOW_MULT = 50
+let MAX_SPEED = 5
+let MIN_SPEED = 1.1
+let SHADOW_MULT = 50
 
 
 const ARTIST_INFO = {
@@ -93,7 +94,7 @@ for (let i = 0; i < Object.keys(ARTIST_INFO).length; i++){
 }
 
 // get hieght after element creation for correct number
-body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
+let body_height_vh = 100*(document.body.scrollHeight/window.innerHeight)
 
 for (let i = 0; i < num_circles; i++) {
     // create all the gradient circles
@@ -181,7 +182,7 @@ function shadow_update(mousemovement) {
 }
 
 // artist pop out
-artist_names = document.querySelectorAll(".artist_name")
+let artist_names = document.querySelectorAll(".artist_name")
 
 // collect all slides
 const slides = document.querySelectorAll(".artist_slide");
@@ -230,24 +231,8 @@ document.addEventListener("click", function(e) {
             current_slide++;
         }
         change_artist(current_slide);
-    } else if (e.target.classList.contains("menu_click_detect")){
-        document.querySelector(".nav_icon").classList.toggle("open")
-        let drops = document.querySelectorAll(".menu_dropdown")
-        drops.forEach((drop) => {
-            drop.classList.toggle("open")
-        })
-    } else if (e.target.classList.contains("menu_dropdown") || e.target.classList.contains("menu_dropdown_img")){
-        // using the source from the image inside the dropdown or the image, log the dropdown name
-        let new_page = ""
-        if (e.target.classList.contains("menu_dropdown_img")){
-            // get the button if img clicked
-            new_page = e.target.src.split("/").pop().split(".")[0]
-        } else if (e.target.classList.contains("menu_dropdown")){
-            // get the button if button clicked
-            new_page = e.target.querySelector("img").src.split("/").pop().split(".")[0]
-        }
-        // change the page
-        window.location.href = new_page + ".html"
+    } else {
+        menu_btns(e)
     }
 })
 

@@ -225,6 +225,10 @@ body{
     width: 75%;
     height: 75%;
 }
+.home{
+    width: 65%;
+    height: 65%;
+}
 
 
 .menu_dropdown.open{
