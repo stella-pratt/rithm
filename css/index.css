@@ -89,8 +89,13 @@ body{
 
 .mouse_follow_hover{
     mix-blend-mode: difference;
-    width: 80px;
+    width: 50px;
     box-shadow: 0 0 20px #fff;
+}
+.mouse_follow_hover2{
+    mix-blend-mode: normal;
+    width: 50px;
+    box-shadow:  0 0 20px #fff;
 }
 
 .artist_pop_out{
@@ -215,6 +220,10 @@ body{
     transition: all 0.25s;
     width: 0;
     height: 0;
+}
+.menu_dropdown img{
+    width: 75%;
+    height: 75%;
 }
 
 

@@ -142,10 +142,13 @@ circle = document.querySelector(".mouse_follow")
 document.addEventListener("mousemove", function(mousemovement) {
     shadow_update(mousemovement)
     // change cursor to hover style
-    if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") || document.querySelector(".menu_click_detect:hover") != null) {
+    if (document.querySelector(".artist_name:hover") || document.querySelector(".artist_slide_faded:hover") != null) {
         circle.classList.add("mouse_follow_hover")
+    } else if (document.querySelector(".menu_click_detect:hover") || document.querySelector(".menu_dropdown:hover") != null){
+        circle.classList.add("mouse_follow_hover2")
     } else {
         circle.classList.remove("mouse_follow_hover")
+        circle.classList.remove("mouse_follow_hover2")
     }
 
     setTimeout(() => {
