@@ -159,6 +159,22 @@ body{
     height: calc((500/1167)*40vw);
     overflow: hidden;
 }
+.description_container{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 1000px;
+}
+.description{
+    width: 94%;
+    position: absolute;
+    transition: all 0.5s;
+    color: var(--site_white);
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    padding: 3%;
+    line-height: 30px;
+}
 
 .artist_img{
     width: 40vw;
