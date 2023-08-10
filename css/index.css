@@ -173,7 +173,7 @@ body{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     padding: 3%;
-    line-height: 30px;
+    line-height: 35px;
 }
 
 .artist_img{
@@ -200,6 +200,16 @@ body{
     background-image: linear-gradient(var(--bg_black), rgba(0, 0, 0, 0) 20%);
     z-index: 4;
 }
+.music_player{
+    border-radius: 12px;
+    height: 15vh;
+    width: 94%;
+    padding: 3% 3% 0 3%;
+    cursor: none;
+}
+
+
+
 .menu_container {
     width: 100px;
     height: 300px;
@@ -211,6 +221,7 @@ body{
     flex-direction: column;
     align-items: center;
 }
+
 
 .menu_drop{
     width: 100px;

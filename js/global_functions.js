@@ -41,3 +41,11 @@ export function mouse_move_updates(e) {
     }, 20)
 
 }
+
+export function mouse_window(type) {
+    if (type === "enter"){
+        document.querySelector(".mouse_follow").style.opacity = "100";
+    } else if (type === "leave") {
+        document.querySelector(".mouse_follow").style.opacity = "0";
+    }
+}
