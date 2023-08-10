@@ -1,0 +1,97 @@
+
+.right_side{
+    height: 100%;
+    width: 60%;
+    left: 40%;
+    top: 0;
+    position: fixed;
+    background: aqua;
+    overflow: hidden;
+}
+.stage_container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    aspect-ratio: 1 / 1;
+    width: 75%;
+    display: grid;
+    grid-template-rows: 2fr repeat(3, 3fr 1fr);
+    grid-template-columns: 1fr repeat(2, 3fr) 1fr 2fr;
+}
+.stage_container div{
+    overflow: hidden;
+}
+
+/* grid items */
+.entry1{
+    grid-row: 1 / 7;
+    background: var(--bg_black);
+    grid-column: 1;
+    writing-mode: vertical-lr;
+}
+.entry2{
+    grid-row: 1 / 7;
+    background: var(--bg_black);
+    grid-column: 4;
+    writing-mode: vertical-lr;
+}
+.sensory{
+    grid-column: 5;
+    grid-row: 6;
+    background: gold;
+}
+.bathrooms{
+    grid-column: 5;
+    grid-row: 2;
+    background: orangered;
+}
+.food{
+    grid-column: 5;
+    grid-row: 4;
+    background: greenyellow;
+}
+.stage{
+    grid-row: 1;
+    grid-column: 2 / 4;
+    background: dodgerblue;
+}
+.entryway1{
+    background: var(--bg_black);
+    grid-column: 2 / 4;
+    grid-row: 3;
+}
+.entryway2{
+    background: var(--bg_black);
+    grid-column: 2 / 4;
+    grid-row: 5;
+}
+.space{
+    grid-column: 3;
+    background: var(--site_purple);
+    display: grid;
+}
+.standard{
+    grid-column: 2;
+    background: var(--site_pink);
+    display: grid;
+}
+.sect1{
+    grid-row: 2 / 3;
+}
+.sect2{
+    grid-row: 4 / 5;
+}
+.sect3{
+    grid-row: 6 / 7;
+}
+
+.seat{
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    width: 75%;
+    margin: auto;
+    background: white;
+}
