@@ -11,6 +11,21 @@ document.addEventListener("mouseenter", function () {
     mouse_window("enter");
 })
 
+function center_section(section) {
+    console.log("centering")
+    // reset the centering of the stage container
+    stage_container.style.top = "0";
+    stage_container.style.left = "0";
+    // get distance from section to edge of .right_side
+    let section_top = (parent_stage.getBoundingClientRect()["height"] - section.getBoundingClientRect()["height"])/2;
+    let section_left = (parent_stage.getBoundingClientRect()["width"] - section.getBoundingClientRect()["width"])/2;
+    // get distances to edge of stage container
+    let stage_top = (section.getBoundingClientRect()["top"]-stage_container.getBoundingClientRect()["top"]);
+    let stage_left = (section.getBoundingClientRect()["left"]-stage_container.getBoundingClientRect()["left"]);
+    // transform the stage container to the new centered position
+    stage_container.style.transform = `translate(${section_left - stage_left + "px"}, ${section_top - stage_top + "px"})`;
+}
+
 // center the stage container using top and left
 let stage_container = document.querySelector(".stage_container");
 let parent_stage = document.querySelector(".right_side");
@@ -27,22 +42,16 @@ document.addEventListener("click", function(e) {
         // when stage area clicked
         let section = e.target;
         const seats = section.querySelectorAll(".seat");
-        // zoom in and fade section
-        stage_container.style.width = "175%";
+        // fade section
         section.style.background = "var(--bg_black)";
         // show seats
         seats.forEach((seat) => {seat.classList.add("seat_show");})
-        // reset the centering of the stage container
-        stage_container.style.top = "0";
-        stage_container.style.left = "0";
-        // get distance from section to edge of .right_side
-        let section_top = (parent_stage.getBoundingClientRect()["height"] - section.getBoundingClientRect()["height"])/2;
-        let section_left = (parent_stage.getBoundingClientRect()["width"] - section.getBoundingClientRect()["width"])/2;
-        // get distances to edge of stage container
-        let stage_top = section.getBoundingClientRect()["top"]-stage_container.getBoundingClientRect()["top"];
-        let stage_left = section.getBoundingClientRect()["left"]-stage_container.getBoundingClientRect()["left"];
-        // transform the stage container to the new centered position
-        stage_container.style.transform = `translate(${section_left - stage_left + "px"}, ${section_top - stage_top + "px"})`;
+        // zoom and center section
+        stage_container.style.width = "175%";
+        let centering = setInterval(center_section, 1, section);
+        setTimeout(() => {
+            clearInterval(centering);
+        }, 500)
     }
 })
 

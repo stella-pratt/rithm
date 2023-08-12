@@ -14,6 +14,7 @@
     display: grid;
     grid-template-rows: 2fr repeat(3, 3fr 1fr);
     grid-template-columns: 1fr repeat(2, 3fr) 1fr 2fr;
+    transition: width 0.5s;
 }
 .stage_container div{
     overflow: hidden;
