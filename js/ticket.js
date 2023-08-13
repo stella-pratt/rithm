@@ -2,6 +2,7 @@ import {menu_btns, mouse_move_updates, mouse_window} from "./global_functions.js
 
 document.addEventListener("mousemove", function(e) {
     mouse_move_updates(e)
+    // display pop
 });
 
 document.addEventListener("mouseleave", function () {
@@ -12,6 +13,13 @@ document.addEventListener("mouseenter", function () {
 })
 
 function center_section(section) {
+    /*
+    Take final distance to container edge and subtract initial distance to container edge
+    do this for both top and left
+    divide by 500 for 500ms
+    add the initial distance to the container edge back for current distance to container edge
+    have a loop that increases a variable by the current distance to container edge divided by 500
+    */
     console.log("centering")
     // reset the centering of the stage container
     stage_container.style.top = "0";
@@ -58,9 +66,7 @@ document.addEventListener("click", function(e) {
 
 
 const space = document.querySelectorAll(".space")
-const space_section = []
-space.forEach((spacey, index) => {
-    space_section.push([])
+space.forEach((spacey) => {
     // fill the grid with circles
     for (let r = 0; r < 12; r++) { // repeat for 14 rows
         for (let c = 0; c < 17; c++) { // repeat for 20 columns
@@ -73,3 +79,12 @@ space.forEach((spacey, index) => {
     }
 });
 
+// create seat pop-ups
+
+const seat_parent = document.querySelectorAll(".seat");
+seat_parent.forEach((seat) => {
+    let pop = document.createElement("div");
+    pop.classList.add("pop");
+    pop.innerHTML = "yay";
+    seat.appendChild(pop);
+});
