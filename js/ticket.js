@@ -56,10 +56,7 @@ document.addEventListener("click", function(e) {
         seats.forEach((seat) => {seat.classList.add("seat_show");})
         // zoom and center section
         stage_container.style.width = "175%";
-        let centering = setInterval(center_section, 1, section);
-        setTimeout(() => {
-            clearInterval(centering);
-        }, 500)
+        center_section(section)
     }
 })
 
