@@ -1,8 +1,16 @@
 import {menu_btns, mouse_move_updates, mouse_window} from "./global_functions.js";
+let seat_hover = document.querySelector(".seat_hover")
+let cursor = document.querySelector(".mouse_follow");
 
 document.addEventListener("mousemove", function(e) {
     mouse_move_updates(e)
-    // display pop
+    // add delay because mouse follow function has delay
+    setTimeout(()=>{
+        // make seat hover follow cursor
+        const cursor_info = cursor.getBoundingClientRect();
+        seat_hover.style.left = cursor_info["left"] + (cursor_info["width"]/2) + "px";
+        seat_hover.style.top = cursor_info["top"]+(cursor_info["height"]/2) + "px";
+    }, 20)
 });
 
 document.addEventListener("mouseleave", function () {
@@ -20,7 +28,6 @@ function center_section(section) {
     add the initial distance to the container edge back for current distance to container edge
     have a loop that increases a variable by the current distance to container edge divided by 500
     */
-    console.log("centering")
     // reset the centering of the stage container
     stage_container.style.top = "0";
     stage_container.style.left = "0";
@@ -65,8 +72,8 @@ document.addEventListener("click", function(e) {
 const space = document.querySelectorAll(".space")
 space.forEach((spacey) => {
     // fill the grid with circles
-    for (let r = 0; r < 12; r++) { // repeat for 14 rows
-        for (let c = 0; c < 17; c++) { // repeat for 20 columns
+    for (let r = 0; r < 12; r++) { // repeat for rows
+        for (let c = 0; c < 10; c++) { // repeat for columns
             let seat = document.createElement("div");
             seat.classList.add("seat");
             seat.style.gridRow = (r + 1).toString();

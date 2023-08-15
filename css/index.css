@@ -97,6 +97,14 @@ body{
     width: 50px;
     box-shadow:  0 0 20px #fff;
 }
+@media (hover: none) {
+    .mouse_follow{
+        display: none;
+    }
+    body{
+        cursor: auto;
+    }
+}
 
 .artist_pop_out{
     width: 0;
