@@ -119,11 +119,15 @@
 
 .seat_hover{
     position: fixed;
-    transform: translate(-3.5vw,-12vw);
+    transform: translate(-3.5vw,-11.5vw);
     height: 10vw;
     width: 7vw;
     background: orangered;
     border-radius: 0.5vw;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 .seat_hover::after{
     content: "";
@@ -133,4 +137,7 @@
     border-width: 1vw;
     border-style: solid;
     border-color: orangered transparent transparent transparent;
+}
+.seatpop_show{
+    opacity: 100;
 }

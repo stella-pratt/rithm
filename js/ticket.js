@@ -11,6 +11,13 @@ document.addEventListener("mousemove", function(e) {
         seat_hover.style.left = cursor_info["left"] + (cursor_info["width"]/2) + "px";
         seat_hover.style.top = cursor_info["top"]+(cursor_info["height"]/2) + "px";
     }, 20)
+    // show the popup
+    if (document.querySelector(".seat:hover") != null){
+        console.log("hover")
+        document.querySelector(".seat_hover").classList.add("seatpop_show");
+    } else {
+         document.querySelector(".seat_hover").classList.remove("seatpop_show");
+    }
 });
 
 document.addEventListener("mouseleave", function () {
