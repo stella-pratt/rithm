@@ -1,6 +1,10 @@
 import {menu_btns, mouse_move_updates, mouse_window} from "./global_functions.js";
 let seat_hover = document.querySelector(".seat_hover")
 let cursor = document.querySelector(".mouse_follow");
+let SPACE_ROWS = 12;
+
+// define row names
+const rows = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
 
 document.addEventListener("mousemove", function(e) {
     mouse_move_updates(e)
@@ -13,8 +17,14 @@ document.addEventListener("mousemove", function(e) {
     }, 20)
     // show the popup
     if (document.querySelector(".seat:hover") != null){
-        console.log("hover")
         document.querySelector(".seat_hover").classList.add("seatpop_show");
+        // get row
+        let sect_row_num = (e.target.style.gridRow.replace(/\D/g, ''));
+        // add any sections infront
+        let row_num = parseInt(sect_row_num) + (e.target.parentElement.classList[2].replace(/\D/g, '')-1)*SPACE_ROWS;
+        let row = rows[row_num];
+        let seat = e.target.style.gridColumn.replace(/\D/g, '')
+        console.log(row)
     } else {
          document.querySelector(".seat_hover").classList.remove("seatpop_show");
     }
@@ -79,7 +89,7 @@ document.addEventListener("click", function(e) {
 const space = document.querySelectorAll(".space")
 space.forEach((spacey) => {
     // fill the grid with circles
-    for (let r = 0; r < 12; r++) { // repeat for rows
+    for (let r = 0; r < SPACE_ROWS; r++) { // repeat for rows
         for (let c = 0; c < 10; c++) { // repeat for columns
             let seat = document.createElement("div");
             seat.classList.add("seat");
