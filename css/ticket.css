@@ -6,7 +6,6 @@
     top: 0;
     position: fixed;
     overflow: hidden;
-    background: aqua;
 }
 .stage_container{
     position: absolute;
@@ -119,25 +118,37 @@
 
 .seat_hover{
     position: fixed;
-    transform: translate(-3.5vw,-11.5vw);
-    height: 10vw;
-    width: 7vw;
-    background: orangered;
+    transform: translate(-5vw,-8.5vw);
+    height: 7vw;
+    width: 10vw;
+    background: var(--bg_black);
     border-radius: 0.5vw;
+    border: var(--site_white) 0.2vw solid;
     z-index: 10;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 .seat_hover::after{
     content: "";
     position: absolute;
-    top: 99%;
-    left: 2.5vw;
+    top: 100%;
+    left: 3.8vw;
     border-width: 1vw;
     border-style: solid;
-    border-color: orangered transparent transparent transparent;
+    border-color: var(--site_white) transparent transparent transparent;
 }
 .seatpop_show{
     opacity: 100;
+}
+.hover_info{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
 }
