@@ -10,10 +10,14 @@ const rows = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F
 
 
 function mySplice(num_remove, array_remove) {
-    // remove the elements from the array if they are in it
-    if (array_remove.includes(num_remove)){
-        array_remove.splice(array_remove.indexOf(num_remove), 1);
+    // loop for each sumbmitted value
+    for (let i = 0; i < num_remove.length; i++){
+        // remove the elements from the array if they are in it
+        if (array_remove.includes(num_remove[i])){
+            array_remove.splice(array_remove.indexOf(num_remove[i]), 1);
+        }
     }
+
     return array_remove;
 }
 
@@ -52,27 +56,16 @@ document.addEventListener("mousemove", function(e) {
         }
         // remove the sections that seat cannot be in
         if (seat_section.contains("standard")){
-            sections = mySplice("1", sections);
-            sections = mySplice("3", sections);
-            sections = mySplice("4", sections);
-            sections = mySplice("6", sections);
-            sections = mySplice("7", sections);
-            sections = mySplice("9", sections);
+            sections = mySplice(["1", "3", "4", "6", "7", "9"], sections);
         } else {
             // if accessible seat
-            sections = mySplice("2", sections);
-            sections = mySplice("5", sections);
-            sections = mySplice("8", sections);
+            sections = mySplice(["2", "5", "8"], sections);
             if (seat_section.contains("left_space")){
                 // remove right sections
-                sections = mySplice("3", sections);
-                sections = mySplice("6", sections);
-                sections = mySplice("9", sections);
+                sections = mySplice(["3", "6", "9"], sections);
             } else if (seat_section.contains("right_space")){
                 // remove left sections
-                sections = mySplice("1", sections);
-                sections = mySplice("4", sections);
-                sections = mySplice("7", sections);
+                sections = mySplice(["1", "4", "7"], sections);
             }
         }
         seat_hover.children[2].children[1].innerHTML = sections[0];
@@ -91,13 +84,6 @@ document.addEventListener("mouseenter", function () {
 })
 
 function center_section(section) {
-    /*
-    Take final distance to container edge and subtract initial distance to container edge
-    do this for both top and left
-    divide by 500 for 500ms
-    add the initial distance to the container edge back for current distance to container edge
-    have a loop that increases a variable by the current distance to container edge divided by 500
-    */
     // reset the centering of the stage container
     stage_container.style.top = "0";
     stage_container.style.left = "0";
@@ -123,10 +109,13 @@ stage_container.style.left = default_stage_left;
 // add a click checker to add buttons to elements
 document.addEventListener("click", function(e) {
     menu_btns(e) // check if menu buttons clicked
-    if (e.target.classList.contains("space")){
-        // when stage area clicked
+    if (e.target.classList.contains("space") || e.target.classList.contains("standard")) {
+        // when seat area clicked
         let section = e.target;
         const seats = section.querySelectorAll(".seat");
+        //reset all section colours
+        document.querySelectorAll(".space").forEach((space) => {space.style.background = "var(--site_purple)";})
+        document.querySelectorAll(".standard").forEach((standard) => {standard.style.background = "var(--site_pink)";})
         // fade section
         section.style.background = "var(--bg_black)";
         // show seats
@@ -138,7 +127,7 @@ document.addEventListener("click", function(e) {
 })
 
 
-
+// accessible seat creation
 const space = document.querySelectorAll(".space")
 space.forEach((spacey) => {
     // fill the grid with circles
@@ -152,13 +141,19 @@ space.forEach((spacey) => {
         }
     }
 });
-
-// create seat pop-ups
-
-const seat_parent = document.querySelectorAll(".seat");
-seat_parent.forEach((seat) => {
-    let pop = document.createElement("div");
-    pop.classList.add("pop");
-    pop.innerHTML = "yay";
-    seat.appendChild(pop);
+// standard seat creation
+const standard = document.querySelectorAll(".standard");
+standard.forEach((standardy) => {
+    // fill the grid with circles
+    for (let r = 0; r < 18; r++) { // repeat for rows
+        for (let c = 0; c < 30; c++) { // repeat for columns
+            let seat = document.createElement("div");
+            seat.classList.add("seat");
+            seat.classList.add("standard_seat")
+            seat.style.gridRow = (r + 1).toString();
+            seat.style.gridColumn = (c + 1).toString();
+            standardy.appendChild(seat);
+        }
+    }
 });
+

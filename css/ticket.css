@@ -35,17 +35,23 @@
 .sensory{
     grid-column: 6;
     grid-row: 6;
-    background: gold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .bathrooms{
     grid-column: 6;
     grid-row: 2;
-    background: orangered;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .food{
     grid-column: 6;
     grid-row: 4;
-    background: greenyellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .stage{
     grid-row: 1;
@@ -65,7 +71,6 @@
 .space{
     background: var(--site_purple);
     display: grid;
-    transition: background 0.5s;
 }
 .left_space{
     grid-column: 2;
@@ -100,20 +105,9 @@
 .seat_show{
     display: block;
 }
-.pop{
-    visibility: hidden;
-    width: 120px;
-    background: forestgreen;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.5s;
+.standard_seat{
+    background: var(--site_pink);
 }
-
 
 
 .seat_hover{
@@ -151,4 +145,8 @@
     justify-content: space-between;
     font-family: 'Roboto', sans-serif;
     font-size: large;
+}
+
+.area_imgs{
+    width: 100%;
 }
