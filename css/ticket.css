@@ -56,7 +56,12 @@
 .stage{
     grid-row: 1;
     grid-column: 2 / 5;
-    background: dodgerblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stage img{
+    height: 100%;
 }
 .entryway1{
     background: var(--bg_black);

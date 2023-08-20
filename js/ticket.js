@@ -113,6 +113,8 @@ document.addEventListener("click", function(e) {
         // when seat area clicked
         let section = e.target;
         const seats = section.querySelectorAll(".seat");
+        //reset all section seats
+        document.querySelectorAll(".seat_show").forEach((seat) => {seat.classList.remove("seat_show")});
         //reset all section colours
         document.querySelectorAll(".space").forEach((space) => {space.style.background = "var(--site_purple)";})
         document.querySelectorAll(".standard").forEach((standard) => {standard.style.background = "var(--site_pink)";})
