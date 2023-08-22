@@ -173,7 +173,36 @@ body{
     align-items: center;
 }
 .ticket_header{
-    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.ticket_header h1{
+    font-family: 'Staatliches', cursive;
+    font-size: 5vw;
+}
+.count_container{
+    display: flex;
+    width: 30%;
+    height: 70%;
+    border-radius: 1000px;
+    align-items: center;
+    box-sizing: border-box;
+    border: var(--site_white) solid 0.2vw;
+}
+.count_container div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2vw;
+}
+.count_btn{
+    width: 45%;
+}
+.seat_count{
+    width: 30%;
 }
 .checkout{
     width: 80%;

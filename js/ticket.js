@@ -20,6 +20,11 @@ function mySplice(num_remove, array_remove) {
     return array_remove;
 }
 
+// set up the count
+let seat_count = 2; // default number of seats
+let count_display = document.querySelector(".seat_count")
+count_display.innerHTML = seat_count;
+
 
 document.addEventListener("mousemove", function(e) {
     mouse_move_updates(e)
@@ -75,6 +80,7 @@ document.addEventListener("mousemove", function(e) {
     }
 });
 
+// hide the mouse if not in the viewport
 document.addEventListener("mouseleave", function () {
     mouse_window("leave");
 })
@@ -124,6 +130,22 @@ document.addEventListener("click", function(e) {
         // zoom and center section
         stage_container.style.width = "175%";
         center_section(section)
+    } else if (e.target.classList.contains("count_btn")){
+        // add or subtract to the number of seats
+        if (e.target.innerHTML === "-"){
+            //check if 1 can be subtracted
+            if (seat_count > 1){
+                seat_count -= 1;
+                count_display.innerHTML = seat_count;
+            }
+        } else if (e.target.innerHTML === "+"){
+            // add to count
+            if (seat_count < 10){
+                seat_count += 1;
+                count_display.innerHTML = seat_count;
+            }
+
+        }
     }
 })
 
@@ -157,4 +179,6 @@ standard.forEach((standardy) => {
         }
     }
 });
+
+
 
