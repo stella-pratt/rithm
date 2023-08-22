@@ -17,7 +17,6 @@ function mySplice(num_remove, array_remove) {
             array_remove.splice(array_remove.indexOf(num_remove[i]), 1);
         }
     }
-
     return array_remove;
 }
 
