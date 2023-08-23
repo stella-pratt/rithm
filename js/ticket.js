@@ -3,7 +3,7 @@ import {menu_btns, mouse_move_updates, mouse_window} from "./global_functions.js
 let seat_hover = document.querySelector(".seat_hover");
 let cursor = document.querySelector(".mouse_follow");
 let SPACE_ROWS = 12;
-let PRICES = {"1": 100, "2": 100, "3": 100, "4": 90, "5": 90, "6": 90, "7": 80, "8": 80, "9": 80};
+let PRICES = {"1": 90, "2": 90, "3": 90, "4": 80, "5": 80, "6": 80, "7": 70, "8": 70, "9": 70};
 
 // define row names
 const rows = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
@@ -41,7 +41,7 @@ document.addEventListener("mousemove", function(e) {
         // get row
         let row_num = (e.target.style.gridRow.replace(/\D/g, ''));
         //change the elements to current hover
-        seat_hover.children[0].children[1].innerHTML = e.target.style.gridColumn.replace(/\D/g, '')
+        seat_hover.children[2].children[1].innerHTML = e.target.style.gridColumn.replace(/\D/g, '')
         seat_hover.children[1].children[1].innerHTML = rows[row_num];
         let seat_section = e.target.parentElement.classList;
         if (seat_section.contains("space")){
@@ -72,7 +72,7 @@ document.addEventListener("mousemove", function(e) {
                 sections = mySplice(["1", "4", "7"], sections);
             }
         }
-        seat_hover.children[2].children[1].innerHTML = sections[0];
+        seat_hover.children[0].children[1].innerHTML = sections[0];
         seat_hover.children[4].children[1].innerHTML = "$" + PRICES[sections[0]];
 
     } else {
