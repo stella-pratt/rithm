@@ -91,6 +91,7 @@ body{
     grid-column: 3;
     background: var(--site_pink);
     display: grid;
+/*    need to equalize all columns*/
 }
 .sect1{
     grid-row: 2 / 3;
@@ -110,15 +111,19 @@ body{
     background: var(--site_purple);
     display: none;
     opacity: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .seat_show{
-    display: block;
+    display: flex;
 }
 .standard_seat{
     background: var(--site_pink);
 }
-
-
+.tick{
+    width: 10px;
+    height: 75%;
+}
 .seat_hover{
     position: fixed;
     transform: translate(-5vw,-8.5vw);

@@ -232,6 +232,19 @@ document.addEventListener("click", function(e) {
 
         }
     } else if (e.target.classList.contains("seat")){
+        //check if seat is already selected
+        if (e.target.children.length > 0){
+            // remove the tick
+            e.target.children[0].remove();
+        } else {
+            // add the tick
+            let tick = document.createElement("img");
+            tick.src = "images/tick.png";
+            tick.alt = "Tick";
+            tick.className = ("tick");
+            e.target.appendChild(tick);
+        }
+
         // check if any empty tickets
         if (ticket_details[ticket_details.length-1].length === 0){
             // loop to find first empty ticket detail
@@ -251,9 +264,18 @@ document.addEventListener("click", function(e) {
             }
 
         }
-
         // when seat clicked update the ticket details
         update_tickets(ticket_details);
+    } else if (e.target.classList.contains("delete_ticket")){
+        // check to see how many tickets left
+        if (ticket_details.length > 1) {
+            // remove the ticket
+            ticket_details.splice(e.target.parentElement.children[0].innerHTML - 1, 1);
+            // update the count of tickets
+            count_display.innerHTML = ticket_details.length.toString();
+            // update the tickets
+            update_tickets(ticket_details);
+        }
     }
 })
 
