@@ -6,7 +6,40 @@ let SPACE_ROWS = 12;
 let PRICES = {"1": 90, "2": 90, "3": 90, "4": 80, "5": 80, "6": 80, "7": 70, "8": 70, "9": 70};
 
 // define row names
-const rows = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
+const ROWS = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
+
+function getSeatInfo(event_element) {
+    // seat num
+    let seat = event_element.style.gridColumn.replace(/\D/g, '')
+    // row num
+    let row = ROWS[event_element.style.gridRow.replace(/\D/g, '')]
+    // section num
+    let seat_section = event_element.parentElement.classList;
+    let sections = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    // keep 3 sections based on sect
+    if (seat_section.contains("sect1")){
+        sections = sections.splice(0,3);
+    } else if (seat_section.contains("sect2")){
+        sections = sections.splice(3,3);
+    } else if (seat_section.contains("sect3")){
+        sections = sections.splice(6,3);
+    }
+    // remove the sections that seat cannot be in
+    if (seat_section.contains("standard")){
+        sections = mySplice(["1", "3", "4", "6", "7", "9"], sections);
+    } else {
+        // if accessible seat
+        sections = mySplice(["2", "5", "8"], sections);
+        if (seat_section.contains("left_space")){
+            // remove right sections
+            sections = mySplice(["3", "6", "9"], sections);
+        } else if (seat_section.contains("right_space")){
+            // remove left sections
+            sections = mySplice(["1", "4", "7"], sections);
+        }
+    }
+    return {"section": sections[0], "row": row, "seat": seat};
+}
 
 
 function mySplice(num_remove, array_remove) {
@@ -19,11 +52,83 @@ function mySplice(num_remove, array_remove) {
     }
     return array_remove;
 }
+let ticket_details = [[], []];
+// update the tickets
+function update_tickets(details) {
+    // create a total cost
+    let total_cost = 0;
+    // remove all current tickets
+    document.querySelectorAll(".ticket").forEach((ticket) => {ticket.remove()});
+    // add the new tickets
+    for (let i = 0; i < details.length; i++){
+        //create main ticket div
+        let ticket_div = document.createElement("div");
+        ticket_div.classList.add("ticket");
+        //add the number
+        let ticket_num = document.createElement("div");
+        ticket_num.classList.add("ticket_num");
+        ticket_num.innerHTML = (i + 1).toString();
+        ticket_div.appendChild(ticket_num);
+        // add the info div
+        let ticket_info = document.createElement("div");
+        ticket_info.classList.add("ticket_info");
+        ticket_div.appendChild(ticket_info);
+        // set up ticket price variable
+        let ticket_cost = "";
+        // add the details
+        // check if seat has been chosen
+        if (details[i].length === 0){
+            let select_seat = document.createElement("div");
+            select_seat.classList.add("select_seat");
+            select_seat.innerHTML = "Please select a seat";
+            ticket_info.appendChild(select_seat);
+            // set price to 0
+            ticket_cost = "$00.00";
+        } else {
+            // create the seat info and add to info div
+            let seat_section = document.createElement("div");
+            seat_section.innerHTML = "Section: " + details[i][0];
+            ticket_info.appendChild(seat_section);
+            let seat_row = document.createElement("div");
+            seat_row.innerHTML = "Row: " + details[i][1];
+            ticket_info.appendChild(seat_row);
+            let seat_num = document.createElement("div");
+            seat_num.innerHTML = "Seat: " + details[i][2];
+            ticket_info.appendChild(seat_num);
+            // set ticket price
+            let ticket_dollars = PRICES[details[i][0]];
+            ticket_cost = "$" + ticket_dollars.toString() + ".00";
+            total_cost += ticket_dollars;
+        }
+        // add the price
+        let ticket_price = document.createElement("div");
+        ticket_price.innerHTML = ticket_cost;
+        ticket_div.appendChild(ticket_price);
+        // add the remove button
+        let ticket_remove = document.createElement("img");
+        ticket_remove.src = "images/trash.png";
+        ticket_remove.alt = "Remove Ticket";
+        ticket_remove.classList.add("delete_ticket");
+        ticket_div.appendChild(ticket_remove);
+        // change border lefts colour
+        if (details[i].length === 0){
+            ticket_div.style.borderLeft = "0.4vw solid var(--bg_black)";
+        } else if (details[i][0] === "2" || details[i][0] === "5" || details[i][0] === "8"){
+            ticket_div.style.borderLeft = "0.4vw solid var(--site_pink)";
+        } else {
+            ticket_div.style.borderLeft = "0.4vw solid var(--site_purple)";
+        }
+        // add the ticket to the page
+        document.querySelector(".tickets").appendChild(ticket_div);
+    }
+    // update the total cost
+    document.querySelector(".total_cost").innerHTML = "$" + total_cost.toString() + ".00";
+}
+update_tickets(ticket_details);
 
 // set up the count
-let seat_count = 2; // default number of seats
 let count_display = document.querySelector(".seat_count")
-count_display.innerHTML = seat_count;
+count_display.innerHTML = ticket_details.length.toString();
 
 
 document.addEventListener("mousemove", function(e) {
@@ -38,42 +143,20 @@ document.addEventListener("mousemove", function(e) {
     // show the popup
     if (document.querySelector(".seat:hover") != null){
         document.querySelector(".seat_hover").classList.add("seatpop_show");
-        // get row
-        let row_num = (e.target.style.gridRow.replace(/\D/g, ''));
         //change the elements to current hover
-        seat_hover.children[2].children[1].innerHTML = e.target.style.gridColumn.replace(/\D/g, '')
-        seat_hover.children[1].children[1].innerHTML = rows[row_num];
+        seat_hover.children[2].children[1].innerHTML = getSeatInfo(e.target)["seat"];
+        seat_hover.children[1].children[1].innerHTML = getSeatInfo(e.target)["row"];
+        // set accessible or standard
         let seat_section = e.target.parentElement.classList;
         if (seat_section.contains("space")){
             seat_hover.children[3].children[1].innerHTML = "Accessible";
         } else if (seat_section.contains("standard")){
             seat_hover.children[3].children[1].innerHTML = "Standard";
         }
-        let sections = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        // keep 3 sections based on sect
-        if (seat_section.contains("sect1")){
-            sections = sections.splice(0,3);
-        } else if (seat_section.contains("sect2")){
-            sections = sections.splice(3,3);
-        } else if (seat_section.contains("sect3")){
-            sections = sections.splice(6,3);
-        }
-        // remove the sections that seat cannot be in
-        if (seat_section.contains("standard")){
-            sections = mySplice(["1", "3", "4", "6", "7", "9"], sections);
-        } else {
-            // if accessible seat
-            sections = mySplice(["2", "5", "8"], sections);
-            if (seat_section.contains("left_space")){
-                // remove right sections
-                sections = mySplice(["3", "6", "9"], sections);
-            } else if (seat_section.contains("right_space")){
-                // remove left sections
-                sections = mySplice(["1", "4", "7"], sections);
-            }
-        }
-        seat_hover.children[0].children[1].innerHTML = sections[0];
-        seat_hover.children[4].children[1].innerHTML = "$" + PRICES[sections[0]];
+        // change section and price
+        let section = getSeatInfo(e.target)["section"];
+        seat_hover.children[0].children[1].innerHTML = section;
+        seat_hover.children[4].children[1].innerHTML = "$" + PRICES[section] + ".00";
 
     } else {
          document.querySelector(".seat_hover").classList.remove("seatpop_show");
@@ -134,18 +217,43 @@ document.addEventListener("click", function(e) {
         // add or subtract to the number of seats
         if (e.target.innerHTML === "-"){
             //check if 1 can be subtracted
-            if (seat_count > 1){
-                seat_count -= 1;
-                count_display.innerHTML = seat_count;
+            if (ticket_details.length > 1){
+                ticket_details.pop();
+                count_display.innerHTML = ticket_details.length.toString();
+                update_tickets(ticket_details);
             }
         } else if (e.target.innerHTML === "+"){
             // add to count
-            if (seat_count < 10){
-                seat_count += 1;
-                count_display.innerHTML = seat_count;
+            if (ticket_details.length < 10){
+                ticket_details.push([]);
+                count_display.innerHTML = ticket_details.length.toString();
+                update_tickets(ticket_details);
             }
 
         }
+    } else if (e.target.classList.contains("seat")){
+        // check if any empty tickets
+        if (ticket_details[ticket_details.length-1].length === 0){
+            // loop to find first empty ticket detail
+            for (let i = 0; i < ticket_details.length; i++){
+                // if ticket is empty add the clicked seat info
+                if (ticket_details[i].length === 0){
+                    ticket_details[i] = Object.values(getSeatInfo(e.target));
+                    break;
+                }
+            }
+        } else {
+            // add a new ticket if 10 tickets not reached
+            if (ticket_details.length < 10){
+                ticket_details.push(Object.values(getSeatInfo(e.target)));
+                // update the count of tickets
+                count_display.innerHTML = ticket_details.length.toString();
+            }
+
+        }
+
+        // when seat clicked update the ticket details
+        update_tickets(ticket_details);
     }
 })
 
