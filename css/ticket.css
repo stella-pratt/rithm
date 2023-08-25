@@ -80,6 +80,8 @@ body{
 .space{
     background: var(--site_purple);
     display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    grid-template-rows: repeat(12, minmax(0, 1fr));
 }
 .left_space{
     grid-column: 2;
@@ -91,7 +93,8 @@ body{
     grid-column: 3;
     background: var(--site_pink);
     display: grid;
-/*    need to equalize all columns*/
+    grid-template-columns: repeat(30, minmax(0, 1fr));
+    grid-template-rows: repeat(18, minmax(0, 1fr));
 }
 .sect1{
     grid-row: 2 / 3;
@@ -121,8 +124,9 @@ body{
     background: var(--site_pink);
 }
 .tick{
-    width: 10px;
+    width: 75%;
     height: 75%;
+    pointer-events: none;
 }
 .seat_hover{
     position: fixed;

@@ -123,12 +123,12 @@ function update_tickets(details) {
     }
     // update the total cost
     document.querySelector(".total_cost").innerHTML = "$" + total_cost.toString() + ".00";
+    // update count
+    document.querySelector(".seat_count").innerHTML = ticket_details.length.toString();
 }
 update_tickets(ticket_details);
 
-// set up the count
-let count_display = document.querySelector(".seat_count")
-count_display.innerHTML = ticket_details.length.toString();
+
 
 
 document.addEventListener("mousemove", function(e) {
@@ -219,14 +219,12 @@ document.addEventListener("click", function(e) {
             //check if 1 can be subtracted
             if (ticket_details.length > 1){
                 ticket_details.pop();
-                count_display.innerHTML = ticket_details.length.toString();
                 update_tickets(ticket_details);
             }
         } else if (e.target.innerHTML === "+"){
             // add to count
             if (ticket_details.length < 10){
                 ticket_details.push([]);
-                count_display.innerHTML = ticket_details.length.toString();
                 update_tickets(ticket_details);
             }
 
@@ -236,34 +234,48 @@ document.addEventListener("click", function(e) {
         if (e.target.children.length > 0){
             // remove the tick
             e.target.children[0].remove();
-        } else {
-            // add the tick
-            let tick = document.createElement("img");
-            tick.src = "images/tick.png";
-            tick.alt = "Tick";
-            tick.className = ("tick");
-            e.target.appendChild(tick);
-        }
-
-        // check if any empty tickets
-        if (ticket_details[ticket_details.length-1].length === 0){
-            // loop to find first empty ticket detail
+            // remove the ticket
+            // find the matching index
             for (let i = 0; i < ticket_details.length; i++){
-                // if ticket is empty add the clicked seat info
-                if (ticket_details[i].length === 0){
-                    ticket_details[i] = Object.values(getSeatInfo(e.target));
+                if (ticket_details[i][0] === getSeatInfo(e.target)["section"] && ticket_details[i][1] === getSeatInfo(e.target)["row"] && ticket_details[i][2] === getSeatInfo(e.target)["seat"]){
+                    // remove the ticket
+                    ticket_details.splice(i, 1);
                     break;
                 }
             }
         } else {
-            // add a new ticket if 10 tickets not reached
-            if (ticket_details.length < 10){
-                ticket_details.push(Object.values(getSeatInfo(e.target)));
-                // update the count of tickets
-                count_display.innerHTML = ticket_details.length.toString();
-            }
+            // add the ticket
+            // check if any empty tickets
+            if (ticket_details[ticket_details.length-1].length === 0){
+                // loop to find first empty ticket detail
+                for (let i = 0; i < ticket_details.length; i++){
+                    // if ticket is empty add the clicked seat info
+                    if (ticket_details[i].length === 0){
+                        ticket_details[i] = Object.values(getSeatInfo(e.target));
+                        // add the tick
+                        let tick = document.createElement("img");
+                        tick.src = "images/tick.png";
+                        tick.alt = "Tick";
+                        tick.className = ("tick");
+                        e.target.appendChild(tick);
+                        break;
+                    }
+                }
+            } else {
+                // add a new ticket if 10 tickets not reached
+                if (ticket_details.length < 10){
+                    ticket_details.push(Object.values(getSeatInfo(e.target)));
+                    // add the tick
+                    let tick = document.createElement("img");
+                    tick.src = "images/tick.png";
+                    tick.alt = "Tick";
+                    tick.className = ("tick");
+                    e.target.appendChild(tick);
+                }
 
+            }
         }
+
         // when seat clicked update the ticket details
         update_tickets(ticket_details);
     } else if (e.target.classList.contains("delete_ticket")){
@@ -271,8 +283,6 @@ document.addEventListener("click", function(e) {
         if (ticket_details.length > 1) {
             // remove the ticket
             ticket_details.splice(e.target.parentElement.children[0].innerHTML - 1, 1);
-            // update the count of tickets
-            count_display.innerHTML = ticket_details.length.toString();
             // update the tickets
             update_tickets(ticket_details);
         }
