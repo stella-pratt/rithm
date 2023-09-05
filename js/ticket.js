@@ -232,17 +232,20 @@ document.addEventListener("click", function(e) {
     } else if (e.target.classList.contains("seat")){
         //check if seat is already selected
         if (e.target.children.length > 0){
-            // remove the tick
-            e.target.children[0].remove();
-            // remove the ticket
-            // find the matching index
-            for (let i = 0; i < ticket_details.length; i++){
-                if (ticket_details[i][0] === getSeatInfo(e.target)["section"] && ticket_details[i][1] === getSeatInfo(e.target)["row"] && ticket_details[i][2] === getSeatInfo(e.target)["seat"]){
-                    // remove the ticket
-                    ticket_details.splice(i, 1);
-                    break;
+            // remove the tick if more than 1 remaining
+            if (ticket_details.length > 1){
+                e.target.children[0].remove();
+                // remove the ticket
+                // find the matching index
+                for (let i = 0; i < ticket_details.length; i++){
+                    if (ticket_details[i][0] === getSeatInfo(e.target)["section"] && ticket_details[i][1] === getSeatInfo(e.target)["row"] && ticket_details[i][2] === getSeatInfo(e.target)["seat"]){
+                        // remove the ticket
+                        ticket_details.splice(i, 1);
+                        break;
+                    }
                 }
             }
+
         } else {
             // add the ticket
             // check if any empty tickets
