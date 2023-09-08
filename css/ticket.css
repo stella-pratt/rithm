@@ -239,12 +239,15 @@ body{
     width: 40%;
     align-items: center;
     justify-content: space-between;
+    pointer-events: none;
 }
 .checkout_img img{
     height: 80%;
+    pointer-events: none;
 }
 .checkout p{
     right: 0;
+    pointer-events: none;
 }
 .tickets{
     height: 100%;

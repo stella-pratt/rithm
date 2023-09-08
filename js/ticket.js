@@ -278,7 +278,6 @@ document.addEventListener("click", function(e) {
 
             }
         }
-
         // when seat clicked update the ticket details
         update_tickets(ticket_details);
     } else if (e.target.classList.contains("delete_ticket")){
@@ -289,6 +288,22 @@ document.addEventListener("click", function(e) {
             // update the tickets
             update_tickets(ticket_details);
         }
+    } else if (e.target.classList.contains("checkout")){
+        // open the popup if more than 0 tickets and all tickets selected
+        if (ticket_details[0].length > 0 && ticket_details[-1] !== []){
+            // show pop up
+            document.querySelector(".checkout_border").style.display = "flex";
+            document.querySelector(".fade").style.opacity = "80%";
+            document.querySelector(".fade").style.pointerEvents = "all";
+            // change the info on pop up
+            document.getElementById("price").innerHTML = document.querySelector(".total_cost").innerHTML;
+            document.querySelector(".ticket_total").innerHTML = document.querySelector(".seat_count").innerHTML;
+        }
+    } else if (e.target.classList.contains("fade") || e.target.classList.contains("cancel")){ // click off and canecl btn
+        // close the popup
+        document.querySelector(".checkout_border").style.display = "none";
+        document.querySelector(".fade").style.opacity = "0%";
+        document.querySelector(".fade").style.pointerEvents = "none";
     }
 })
 
