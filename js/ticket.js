@@ -4,7 +4,7 @@ let seat_hover = document.querySelector(".seat_hover");
 let cursor = document.querySelector(".mouse_follow");
 let SPACE_ROWS = 12;
 let PRICES = {"1": 90, "2": 90, "3": 90, "4": 80, "5": 80, "6": 80, "7": 70, "8": 70, "9": 70};
-var cloud_test;
+var cloud_test = 1;
 cloud_test++;
 console.log(cloud_test);
 
