@@ -6,6 +6,20 @@ let SPACE_ROWS = 12;
 let PRICES = {"1": 90, "2": 90, "3": 90, "4": 80, "5": 80, "6": 80, "7": 70, "8": 70, "9": 70};
 
 
+// node testing
+fs.readFile("./seats.json", 'utf8', function readFileCallback(err, data) {
+    if (err) {
+        console.log(err);
+    } else {
+        fs.writeFile("./seats.json", JSON.stringify("test"), 'utf8', err => {
+        if (err) throw err;
+            console.log('File has been saved!');
+      });
+    }
+});
+
+
+
 // define row names
 const ROWS = ['just to make "A" have an index of 1', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
 
